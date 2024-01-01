@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Morse Code App{% endblock %}</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='translate.js') }}"></script>
+        {% block head %}{% endblock %}
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Morse Code App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#morse-to-text">Morse Code to Text</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#text-to-morse">Text to Morse Code</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Conatct Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="row my-2">
+            <div class="col my-2">
+                <h2>About the Creator</h2>
+                <p>I am Naeim Salib, a passionate developer who created this Morse Code Translator. This app serves as a demonstration of my web development and API integration skills. All rights reserved to Naeim Salib.</p>
+            </div>
+            <div class="home-hero__mouse-scroll-cont">
+                <div class="mouse"></div>
+              </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="jumbotron">
+                <h1 class="display-4">Welcome to the Morse Code App!</h1>
+                <p class="lead">A simple and intuitive way to translate between text and Morse code.</p>
+                <hr class="my-4">
+                <p>Explore the functionalities of the app using the navigation bar.</p>
+            </div>
+        
+            <div class="row my-4">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Morse Code to Text</h5>
+                            <p class="card-text">Got Morse code? Decode it to plain text and uncover the message within the series of dots and dashes.</p>
+                            <a href="#morse-to-text" class="btn btn-primary">Try it out</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Text to Morse Code</h5>
+                            <p class="card-text">Enter any text and see it transformed into Morse code, the language of dots and dashes used in telecommunication.</p>
+                            <a href="#text-to-morse" class="btn btn-primary">Try it out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+   
+<!-- Morse to Text Section -->
+<!-- Morse to Text Section -->
+<section id="morse-to-text">
+    <div class="container mt-1">
+        <h2>Convert Morse Code to Text</h2>
+        <input type="text" id="morseInput" class="form-control" placeholder="Enter Morse Code">
+        <button onclick="convertMorseToText()" class="btn btn-primary mt-2">Convert</button>
+        <!-- Output box for the translation -->
+        <div id="morseToTextOutput" class="output-box mt-2"></div>
+    </div>
+</section>
+
+<!-- Text to Morse Section -->
+<section id="text-to-morse">
+    <div class="container mt-4">
+        <h2>Convert Text to Morse Code</h2>
+        <input type="text" id="textInput" class="form-control" placeholder="Enter text">
+        <button onclick="convertTextToMorse()" class="btn btn-primary mt-2">Convert</button>
+        <!-- Output box for the translation -->
+        <div id="textToMorseOutput" class="output-box mt-2"></div>
+    </div>
+</section>
+
+<script>
+// Function to convert Morse code to text
+function convertMorseToText() {
+    var morseCode = document.getElementById("morseInput").value;
+
+    $.ajax({
+        type: "GET",
+        url: "https://mores-code-translator.p.rapidapi.com/translate_morse_to_text/" + encodeURIComponent(morseCode),
+        headers: {
+            "X-RapidAPI-Key": "8057fe4b31mshd0baed97211d457p188f88jsnaf6f9d2012f7" // Use your actual RapidAPI key
+        },
+        success: function (response) {
+            // Since response is likely just a string, use it directly
+            document.getElementById("morseToTextOutput").textContent = "Translated Text: " + response;
+        },
+        error: function (error) {
+            console.log("Error: " + JSON.stringify(error));
+        }
+    });
+}
+
+
+// Function to convert text to Morse code
+// Function to convert text to Morse code
+function convertTextToMorse() {
+    var text = document.getElementById("textInput").value;
+
+    $.ajax({
+        type: "GET",
+        url: "https://mores-code-translator.p.rapidapi.com/convert_text_to_morse/" + encodeURIComponent(text),
+        headers: {
+            "X-RapidAPI-Key": "8057fe4b31mshd0baed97211d457p188f88jsnaf6f9d2012f7" // Use your actual RapidAPI key
+        },
+        success: function (response) {
+            // Since response is just a string, use it directly
+            document.getElementById("textToMorseOutput").textContent = "Morse Code: " + response;
+        },
+        error: function (error) {
+            console.log("Error: " + JSON.stringify(error));
+        }
+    });
+}
+
+
+
+</script>
+    <section id="source-code">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h2>App Source Code</h2>
+                    <a href="https://github.com/yourusername/your-repo" class="btn btn-primary mt-2" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h2>API Link</h2>
+                    <a href="https://rapidapi.com/naeimsalib/api/mores-code-translator" class="btn btn-secondary mt-2" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View API
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container mt-4">
+     <h2>Contact Me</h2>
+     <p>Email: NaeimSalib@yahoo.com</p>
+     <p>Feel free to reach out for any queries or collaborations!</p>
+ </div>
+ </section>
+    <!-- Footer (optional, from base.html or create a new one) -->
+    <footer>
+        <footer class="main-footer">
+            <div class="main-container">
+              <div class="main-footer__upper">
+                <div class="main-footer__row main-footer__row-1">
+                  <h2 class="heading heading-sm main-footer__heading-sm">
+                    <span>Social</span>
+                  </h2>
+                  <div class="main-footer__social-cont">
+                    <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/naeimsalib/">
+                      <img class="main-footer__icon" src="https://d33wubrfki0l68.cloudfront.net/7f29579dde49e02480372aa49f7189c5536b0118/34b92/assets/png/linkedin-ico.png"
+                        alt="Ram Maheshwari Linkedin Profile" />
+                    </a>
+                    <a target="_blank" rel="noreferrer" href="https://github.com/naeimsalib">
+                      <img class="main-footer__icon" src="https://d33wubrfki0l68.cloudfront.net/5557d5a11584d7201a38ee1a95200f57a4cc0f88/15085/assets/png/github-ico.png" alt="Naeim Salib Github Profile" />
+                    </a>
+                  </div>
+                </div>
+                <div class="main-footer__row main-footer__row-2">
+                  <h2 class="heading heading-sm text-lt">Naeim Salib</h2>
+                  <p class="main-footer__short-desc">
+                    passionate developer who created this Morse Code Translator. 
+                    This app serves as a demonstration of my web development and API integration skills
+                  </p>
+                </div>
+              </div>
+              <div class="main-footer__lower">
+                &copy; Copyright
+                <script>document.write(new Date().getFullYear())</script>. Made by
+                <a rel="noreferrer" target="_blank" href="https://Naeimsalib.com">Naeim Salib</a>
+              </div>
+            </div>
+          </footer>
+    </footer>
+    
+<!-- With updated integrity attribute -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js" integrity="NewIntegrityHashHere"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="NewIntegrityHashHere"></script>
+</body>
+</html>
