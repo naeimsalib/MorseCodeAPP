@@ -106,7 +106,7 @@ function convertMorseToText() {
         type: "GET",
         url: "https://mores-code-translator.p.rapidapi.com/translate_morse_to_text/" + encodeURIComponent(morseCode),
         headers: {
-            "X-RapidAPI-Key": "8057fe4b31mshd0baed97211d457p188f88jsnaf6f9d2012f7" // Use your actual RapidAPI key
+            "X-RapidAPI-Key": "Enter-your-RAPIDAPI-KEY" // Use your actual RapidAPI key
         },
         success: function (response) {
             // Since response is likely just a string, use it directly
@@ -128,7 +128,7 @@ function convertTextToMorse() {
         type: "GET",
         url: "https://mores-code-translator.p.rapidapi.com/convert_text_to_morse/" + encodeURIComponent(text),
         headers: {
-            "X-RapidAPI-Key": "8057fe4b31mshd0baed97211d457p188f88jsnaf6f9d2012f7" // Use your actual RapidAPI key
+            "X-RapidAPI-Key": "Enter-your-RAPIDAPI-KEY" // Use your actual RapidAPI key
         },
         success: function (response) {
             // Since response is just a string, use it directly
